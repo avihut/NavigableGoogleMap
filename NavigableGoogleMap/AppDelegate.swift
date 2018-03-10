@@ -11,7 +11,7 @@ import CoreData
 import GoogleMaps
 
 struct APIKeys {
-    static let googleMaps = "AIzaSyCyjbKSn1GD4d4AXk7N4qCqamXmC11B4q8"
+    static let googleMaps = "AIzaSyDhrKrefOK_d1xGS745rM4UoT-ik7D1xf4"
     
     private init() {}
 }
