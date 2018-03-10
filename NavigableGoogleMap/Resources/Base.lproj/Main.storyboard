@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--MapViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NavigableGoogleMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="MapViewController" customClass="MapViewController" customModule="NavigableGoogleMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,12 +21,27 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AeT-fq-zqQ" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="p4O-Hb-2ea"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lUg-mP-3fs" userLabel="Search Field Container">
                                 <rect key="frame" x="8" y="44" width="359" height="48"/>
                                 <subviews>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PoC-p3-ecJ" userLabel="Back Button">
+                                        <rect key="frame" x="12" y="12" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="B1j-eC-KX6"/>
+                                            <constraint firstAttribute="height" constant="24" id="cIc-y8-M9R"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="backArrow"/>
+                                        <connections>
+                                            <action selector="backButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="P53-Z7-M86"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="06h-Ne-3YA" userLabel="Menu Button">
-                                        <rect key="frame" x="0.0" y="12" width="24" height="24"/>
+                                        <rect key="frame" x="12" y="12" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="TvE-HV-8m0"/>
                                             <constraint firstAttribute="height" constant="24" id="oD9-oj-F7y"/>
@@ -35,13 +50,16 @@
                                         <state key="normal" image="menu"/>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BGJ-Tn-cRp" userLabel="Location Search Field">
-                                        <rect key="frame" x="32" y="13.5" width="254" height="21"/>
+                                        <rect key="frame" x="48" y="13.5" width="250" height="21"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="1VA-PC-L1U"/>
+                                        </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSI-xw-h4V" userLabel="Separator">
-                                        <rect key="frame" x="294" y="8" width="1" height="32"/>
+                                        <rect key="frame" x="310" y="12" width="1" height="24"/>
                                         <color key="backgroundColor" red="0.86753121699173441" green="0.86753121699173441" blue="0.86753121699173441" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="1.5" id="OAZ-A1-Y1P"/>
@@ -53,28 +71,32 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ybo-CJ-01u" userLabel="Directions Button">
-                                        <rect key="frame" x="307" y="4" width="40" height="40"/>
+                                        <rect key="frame" x="323" y="12" width="24" height="24"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="5hm-Bt-W5b"/>
-                                            <constraint firstAttribute="width" constant="40" id="IwH-QZ-cce"/>
+                                            <constraint firstAttribute="height" constant="24" id="5hm-Bt-W5b"/>
+                                            <constraint firstAttribute="width" constant="24" id="IwH-QZ-cce"/>
                                         </constraints>
                                         <color key="tintColor" red="0.066208083345095675" green="0.46743783839497144" blue="0.916006643774261" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" image="directions"/>
+                                        <state key="normal" image="walkingDirections"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="PoC-p3-ecJ" firstAttribute="centerY" secondItem="lUg-mP-3fs" secondAttribute="centerY" id="0eT-sh-aFF"/>
                                     <constraint firstItem="06h-Ne-3YA" firstAttribute="centerY" secondItem="lUg-mP-3fs" secondAttribute="centerY" id="8Pk-9o-K9h"/>
-                                    <constraint firstItem="06h-Ne-3YA" firstAttribute="leading" secondItem="lUg-mP-3fs" secondAttribute="leading" id="CCO-uy-def"/>
-                                    <constraint firstAttribute="bottom" secondItem="pSI-xw-h4V" secondAttribute="bottom" constant="8" id="Ejf-Pv-EA9"/>
-                                    <constraint firstItem="pSI-xw-h4V" firstAttribute="top" secondItem="lUg-mP-3fs" secondAttribute="top" constant="8" id="Hgv-RR-8wP"/>
-                                    <constraint firstItem="BGJ-Tn-cRp" firstAttribute="leading" secondItem="06h-Ne-3YA" secondAttribute="trailing" constant="8" id="JRl-c9-iGg"/>
+                                    <constraint firstItem="06h-Ne-3YA" firstAttribute="leading" secondItem="lUg-mP-3fs" secondAttribute="leading" constant="12" id="CCO-uy-def"/>
+                                    <constraint firstAttribute="bottom" secondItem="pSI-xw-h4V" secondAttribute="bottom" constant="12" id="Ejf-Pv-EA9"/>
+                                    <constraint firstItem="pSI-xw-h4V" firstAttribute="top" secondItem="lUg-mP-3fs" secondAttribute="top" constant="12" id="Hgv-RR-8wP"/>
+                                    <constraint firstItem="BGJ-Tn-cRp" firstAttribute="leading" secondItem="06h-Ne-3YA" secondAttribute="trailing" constant="12" id="JRl-c9-iGg"/>
+                                    <constraint firstItem="PoC-p3-ecJ" firstAttribute="leading" secondItem="lUg-mP-3fs" secondAttribute="leading" constant="12" id="JnW-gJ-dmU"/>
+                                    <constraint firstItem="BGJ-Tn-cRp" firstAttribute="leading" secondItem="PoC-p3-ecJ" secondAttribute="trailing" constant="12" id="Msb-cB-AJ6"/>
                                     <constraint firstItem="BGJ-Tn-cRp" firstAttribute="centerY" secondItem="lUg-mP-3fs" secondAttribute="centerY" id="VVH-3M-l8i"/>
                                     <constraint firstItem="pSI-xw-h4V" firstAttribute="centerY" secondItem="lUg-mP-3fs" secondAttribute="centerY" id="XXp-9B-PyK"/>
                                     <constraint firstAttribute="trailing" secondItem="Ybo-CJ-01u" secondAttribute="trailing" constant="12" id="YpB-5N-6bk"/>
-                                    <constraint firstItem="pSI-xw-h4V" firstAttribute="leading" secondItem="BGJ-Tn-cRp" secondAttribute="trailing" constant="8" id="eDw-YJ-rvw"/>
+                                    <constraint firstItem="pSI-xw-h4V" firstAttribute="leading" secondItem="BGJ-Tn-cRp" secondAttribute="trailing" constant="12" id="eDw-YJ-rvw"/>
                                     <constraint firstItem="Ybo-CJ-01u" firstAttribute="centerY" secondItem="lUg-mP-3fs" secondAttribute="centerY" id="fTC-Up-rs9"/>
                                     <constraint firstItem="Ybo-CJ-01u" firstAttribute="leading" secondItem="pSI-xw-h4V" secondAttribute="trailing" constant="12" id="pjM-UU-R29"/>
+                                    <constraint firstAttribute="trailing" secondItem="BGJ-Tn-cRp" secondAttribute="trailing" constant="12" id="xl5-dL-pZp"/>
                                     <constraint firstAttribute="height" constant="48" id="yL2-pC-eAA"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -82,6 +104,11 @@
                                         <integer key="value" value="16"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="xl5-dL-pZp"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -97,9 +124,15 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="PoC-p3-ecJ" id="eGg-ib-7MI"/>
+                        <outlet property="directionsButton" destination="Ybo-CJ-01u" id="7gr-kb-Bhl"/>
                         <outlet property="locationSearchField" destination="BGJ-Tn-cRp" id="mVj-Mi-MhU"/>
+                        <outlet property="locationSearchFieldCompactedConstraint" destination="eDw-YJ-rvw" id="JIo-wH-mJY"/>
+                        <outlet property="locationSearchFieldFullViewConstraint" destination="xl5-dL-pZp" id="uez-XZ-ImI"/>
                         <outlet property="mapView" destination="AeT-fq-zqQ" id="AXe-Db-vKo"/>
+                        <outlet property="menuButton" destination="06h-Ne-3YA" id="Jg6-9g-1gP"/>
                         <outlet property="searchFieldContainer" destination="lUg-mP-3fs" id="fFi-cj-hND"/>
+                        <outlet property="separatorView" destination="pSI-xw-h4V" id="qHA-Bo-RqY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -108,7 +141,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="directions" width="36" height="36"/>
+        <image name="backArrow" width="36" height="36"/>
         <image name="menu" width="36" height="36"/>
+        <image name="walkingDirections" width="36" height="36"/>
     </resources>
 </document>
