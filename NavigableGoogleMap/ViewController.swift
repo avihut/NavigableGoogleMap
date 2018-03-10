@@ -28,7 +28,6 @@ private extension ViewController {
     private func setupLocationServices() {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.headingFilter = kCLHeadingFilterNone
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.delegate = self
         
@@ -40,6 +39,15 @@ private extension ViewController {
         mapView.isMyLocationEnabled = true
         mapView.settings.compassButton = true
         mapView.settings.myLocationButton = true
+        mapView.delegate = self
+    }
+}
+
+extension ViewController: GMSMapViewDelegate {
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        guard let coordinate = locationManager.location?.coordinate else { return false }
+        mapView.animate(to: GMSCameraPosition.camera(withTarget: coordinate, zoom: 18.0))
+        return true
     }
 }
 
