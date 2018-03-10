@@ -91,6 +91,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		661E07C32054271B00F801FA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				667DEB2720542438008EA02E /* Main.storyboard */,
+				667DEB2D20542438008EA02E /* Assets.xcassets */,
+				667DEB2F20542438008EA02E /* LaunchScreen.storyboard */,
+				667DEB2A20542438008EA02E /* NavigableGoogleMap.xcdatamodeld */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		667DEB1720542438008EA02E = {
 			isa = PBXGroup;
 			children = (
@@ -118,11 +129,8 @@
 			children = (
 				667DEB2320542438008EA02E /* AppDelegate.swift */,
 				667DEB2520542438008EA02E /* ViewController.swift */,
-				667DEB2720542438008EA02E /* Main.storyboard */,
-				667DEB2D20542438008EA02E /* Assets.xcassets */,
-				667DEB2F20542438008EA02E /* LaunchScreen.storyboard */,
 				667DEB3220542438008EA02E /* Info.plist */,
-				667DEB2A20542438008EA02E /* NavigableGoogleMap.xcdatamodeld */,
+				661E07C32054271B00F801FA /* Resources */,
 			);
 			path = NavigableGoogleMap;
 			sourceTree = "<group>";
