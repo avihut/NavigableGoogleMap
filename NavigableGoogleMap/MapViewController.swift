@@ -25,6 +25,8 @@ class MapViewController: UIViewController {
     @IBOutlet private weak var locationSearchFieldCompactedConstraint: NSLayoutConstraint!
     @IBOutlet private weak var locationSearchFieldFullViewConstraint: NSLayoutConstraint!
     
+    @IBOutlet private weak var arBadgeContainer: UIView!
+    
     private let locationManager = CLLocationManager()
     
     private var isTypingSearchField = false {
@@ -42,6 +44,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         setupMapView()
         setupSearchFieldContainer()
+        setupARBadgeView()
         setupLocationServices()
     }
     
@@ -77,6 +80,13 @@ private extension MapViewController {
         mapView.isMyLocationEnabled = true
         mapView.settings.compassButton = true
         mapView.settings.myLocationButton = true
+    }
+    
+    private func setupARBadgeView() {
+        arBadgeContainer.layer.shadowColor = UIColor.black.cgColor
+        arBadgeContainer.layer.shadowOpacity = 0.2
+        arBadgeContainer.layer.shadowRadius = 2.0
+        arBadgeContainer.layer.shadowOffset = CGSize(width: 0, height: 1.0)
     }
     
     // MARK: Locations

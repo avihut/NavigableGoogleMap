@@ -110,12 +110,58 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9T-nR-6AQ" userLabel="AR Badge Container">
+                                <rect key="frame" x="8" y="104" width="56" height="56"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="66m-e8-Piu">
+                                        <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Tj5-o1-2Xw">
+                                            <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arBadge" translatesAutoresizingMaskIntoConstraints="NO" id="1Wg-r0-Q97">
+                                                    <rect key="frame" x="4" y="4" width="48" height="48"/>
+                                                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1Wg-r0-Q97" firstAttribute="top" secondItem="Tj5-o1-2Xw" secondAttribute="top" constant="4" id="4dy-IM-JcA"/>
+                                                <constraint firstAttribute="trailing" secondItem="1Wg-r0-Q97" secondAttribute="trailing" constant="4" id="4g3-qj-K4m"/>
+                                                <constraint firstItem="1Wg-r0-Q97" firstAttribute="leading" secondItem="Tj5-o1-2Xw" secondAttribute="leading" constant="4" id="Rw5-h4-eA8"/>
+                                                <constraint firstAttribute="bottom" secondItem="1Wg-r0-Q97" secondAttribute="bottom" constant="4" id="ipc-Ug-zue"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="extraLight"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="28"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="66m-e8-Piu" secondAttribute="bottom" id="Cm5-K2-coD"/>
+                                    <constraint firstAttribute="height" constant="56" id="PcT-L7-Lzt"/>
+                                    <constraint firstAttribute="trailing" secondItem="66m-e8-Piu" secondAttribute="trailing" id="VRm-Ku-d39"/>
+                                    <constraint firstAttribute="width" constant="56" id="lgM-4E-mN6"/>
+                                    <constraint firstItem="66m-e8-Piu" firstAttribute="top" secondItem="Z9T-nR-6AQ" secondAttribute="top" id="qkP-qc-XOJ"/>
+                                    <constraint firstItem="66m-e8-Piu" firstAttribute="leading" secondItem="Z9T-nR-6AQ" secondAttribute="leading" id="zZd-bT-A0p"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="28"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="lUg-mP-3fs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="8Jf-aI-PmQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lUg-mP-3fs" secondAttribute="trailing" constant="8" id="Ibt-zj-hJA"/>
                             <constraint firstItem="AeT-fq-zqQ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Khz-iT-scG"/>
+                            <constraint firstItem="Z9T-nR-6AQ" firstAttribute="top" secondItem="lUg-mP-3fs" secondAttribute="bottom" constant="12" id="TYd-CB-MsQ"/>
+                            <constraint firstItem="Z9T-nR-6AQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="U9m-cB-cuR"/>
                             <constraint firstAttribute="bottom" secondItem="AeT-fq-zqQ" secondAttribute="bottom" id="oSt-Is-P8b"/>
                             <constraint firstItem="lUg-mP-3fs" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="oko-GX-Q20"/>
                             <constraint firstItem="AeT-fq-zqQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vxl-4W-4Xa"/>
@@ -124,6 +170,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="arBadgeContainer" destination="Z9T-nR-6AQ" id="w6U-d9-ace"/>
                         <outlet property="backButton" destination="PoC-p3-ecJ" id="eGg-ib-7MI"/>
                         <outlet property="directionsButton" destination="Ybo-CJ-01u" id="7gr-kb-Bhl"/>
                         <outlet property="locationSearchField" destination="BGJ-Tn-cRp" id="mVj-Mi-MhU"/>
@@ -141,6 +188,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arBadge" width="78" height="78"/>
         <image name="backArrow" width="36" height="36"/>
         <image name="menu" width="36" height="36"/>
         <image name="walkingDirections" width="36" height="36"/>
