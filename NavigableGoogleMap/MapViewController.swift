@@ -9,19 +9,24 @@
 import GoogleMaps
 import UIKit
 
-private let defaultZoomLevel: Float = 18
+private let defaultZoomLevel: Float = 15
+private let searchAreaCompactHeight: CGFloat = 48
+private let searchAreaTotalVerticalRequirement: CGFloat = 68
 
 class MapViewController: UIViewController {
     
     @IBOutlet private weak var mapView: GMSMapView!
     
+    @IBOutlet private weak var searchAreaContainer: UIView!
     @IBOutlet private weak var searchFieldContainer: UIView!
     @IBOutlet private weak var backButton: UIButton!
     @IBOutlet private weak var menuButton: UIButton!
     @IBOutlet private weak var locationSearchField: UITextField!
     @IBOutlet private weak var separatorView: UIView!
     @IBOutlet private weak var directionsButton: UIButton!
+    @IBOutlet private weak var listSeparatorView: UIView!
     
+    @IBOutlet private weak var searchAreaHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var locationSearchFieldCompactedConstraint: NSLayoutConstraint!
     @IBOutlet private weak var locationSearchFieldFullViewConstraint: NSLayoutConstraint!
     
@@ -43,7 +48,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
-        setupSearchFieldContainer()
+        setupSearchArea()
         setupARBadgeView()
         setupLocationServices()
     }
@@ -59,11 +64,13 @@ private extension MapViewController {
     
     // MARK: Setup
     
-    private func setupSearchFieldContainer() {
-        searchFieldContainer.layer.shadowColor = UIColor.black.cgColor
-        searchFieldContainer.layer.shadowOpacity = 0.2
-        searchFieldContainer.layer.shadowRadius = 5.0
-        searchFieldContainer.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+    private func setupSearchArea() {
+        searchAreaContainer.layer.shadowColor = UIColor.black.cgColor
+        searchAreaContainer.layer.shadowOpacity = 0.2
+        searchAreaContainer.layer.shadowRadius = 5.0
+        searchAreaContainer.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShown), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
     
     private func setupLocationServices() {
@@ -87,6 +94,18 @@ private extension MapViewController {
         arBadgeContainer.layer.shadowOpacity = 0.2
         arBadgeContainer.layer.shadowRadius = 2.0
         arBadgeContainer.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+    }
+    
+    @objc func keyboardShown(notification: NSNotification) {
+        guard let info = notification.userInfo, let keyboardHeight = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height else { return }
+        let fullSearchAreaHeight = view.frame.height - (keyboardHeight + searchAreaTotalVerticalRequirement)
+        listSeparatorView.alpha = 0
+        listSeparatorView.isHidden = false
+        UIView.animate(withDuration: 0.15) { [weak self] in
+            self?.listSeparatorView.alpha = 1.0
+            self?.searchAreaHeightConstraint.constant = fullSearchAreaHeight
+            self?.view.layoutIfNeeded()
+        }
     }
     
     // MARK: Locations
@@ -128,11 +147,14 @@ private extension MapViewController {
             self?.backButton.alpha = 0
             self?.separatorView.alpha = 1.0
             self?.directionsButton.alpha = 1.0
+            self?.listSeparatorView.alpha = 0
             self?.locationSearchFieldFullViewConstraint.isActive = false
             self?.locationSearchFieldCompactedConstraint.isActive = true
+            self?.searchAreaHeightConstraint.constant = searchAreaCompactHeight
             self?.view.layoutIfNeeded()
         }, completion: { [weak self] _ in
             self?.backButton.isHidden = true
+            self?.listSeparatorView.isHidden = true
         })
     }
 }
