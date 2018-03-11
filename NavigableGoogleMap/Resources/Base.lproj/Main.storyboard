@@ -123,19 +123,55 @@
                                             </mask>
                                         </variation>
                                     </view>
+                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zrL-Af-TV9">
+                                        <rect key="frame" x="0.0" y="60" width="359" height="0.0"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="fn3-ay-9Gm"/>
+                                        </constraints>
+                                        <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceCell" id="JMY-lA-q9P">
+                                                <rect key="frame" x="0.0" y="28" width="359" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JMY-lA-q9P" id="z3a-Kf-W1O">
+                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="1i0-KT-JB1"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="uNa-Qs-PcN"/>
+                                        </connections>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="zrL-Af-TV9" secondAttribute="trailing" id="0T4-cr-CVx"/>
                                     <constraint firstAttribute="trailing" secondItem="lUg-mP-3fs" secondAttribute="trailing" id="1UE-zO-y09"/>
                                     <constraint firstAttribute="height" constant="48" id="Haw-5h-NcS"/>
                                     <constraint firstItem="lUg-mP-3fs" firstAttribute="top" secondItem="e1B-tS-QkP" secondAttribute="top" id="OtE-6a-VzU"/>
                                     <constraint firstItem="lUg-mP-3fs" firstAttribute="leading" secondItem="e1B-tS-QkP" secondAttribute="leading" id="U7g-sh-qbb"/>
+                                    <constraint firstItem="zrL-Af-TV9" firstAttribute="top" secondItem="lUg-mP-3fs" secondAttribute="bottom" constant="12" id="c4s-wn-IGt"/>
+                                    <constraint firstItem="zrL-Af-TV9" firstAttribute="leading" secondItem="e1B-tS-QkP" secondAttribute="leading" id="f0c-dV-TGm"/>
+                                    <constraint firstAttribute="bottom" secondItem="zrL-Af-TV9" secondAttribute="bottom" id="nt0-5d-J8t"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="16"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="nt0-5d-J8t"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9T-nR-6AQ" userLabel="AR Badge Container">
                                 <rect key="frame" x="8" y="104" width="56" height="56"/>
@@ -201,6 +237,10 @@
                         <outlet property="backButton" destination="PoC-p3-ecJ" id="eGg-ib-7MI"/>
                         <outlet property="directionsButton" destination="Ybo-CJ-01u" id="7gr-kb-Bhl"/>
                         <outlet property="listSeparatorView" destination="LTC-RE-SwY" id="pkS-3l-hAh"/>
+                        <outlet property="locationResultsTableView" destination="zrL-Af-TV9" id="vyw-aV-qDh"/>
+                        <outlet property="locationResultsTableViewBottomConstraint" destination="nt0-5d-J8t" id="LaY-x7-zcy"/>
+                        <outlet property="locationResultsTableViewHeightConstraint" destination="fn3-ay-9Gm" id="Ssy-eb-Hb0"/>
+                        <outlet property="locationResultsTableViewTopConstraint" destination="c4s-wn-IGt" id="EYP-aM-mbO"/>
                         <outlet property="locationSearchField" destination="BGJ-Tn-cRp" id="mVj-Mi-MhU"/>
                         <outlet property="locationSearchFieldCompactedConstraint" destination="eDw-YJ-rvw" id="JIo-wH-mJY"/>
                         <outlet property="locationSearchFieldFullViewConstraint" destination="xl5-dL-pZp" id="uez-XZ-ImI"/>

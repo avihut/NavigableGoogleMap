@@ -25,10 +25,14 @@ class MapViewController: UIViewController {
     @IBOutlet private weak var separatorView: UIView!
     @IBOutlet private weak var directionsButton: UIButton!
     @IBOutlet private weak var listSeparatorView: UIView!
+    @IBOutlet private weak var locationResultsTableView: UITableView!
     
-    @IBOutlet private weak var searchAreaHeightConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var locationSearchFieldCompactedConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var locationSearchFieldFullViewConstraint: NSLayoutConstraint!
+    @IBOutlet private var searchAreaHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var locationSearchFieldCompactedConstraint: NSLayoutConstraint!
+    @IBOutlet private var locationSearchFieldFullViewConstraint: NSLayoutConstraint!
+    @IBOutlet private var locationResultsTableViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private var locationResultsTableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var locationResultsTableViewTopConstraint: NSLayoutConstraint!
     
     @IBOutlet private weak var arBadgeContainer: UIView!
     
@@ -99,10 +103,14 @@ private extension MapViewController {
     @objc func keyboardShown(notification: NSNotification) {
         guard let info = notification.userInfo, let keyboardHeight = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height else { return }
         let fullSearchAreaHeight = view.frame.height - (keyboardHeight + searchAreaTotalVerticalRequirement)
+        
         listSeparatorView.alpha = 0
         listSeparatorView.isHidden = false
         UIView.animate(withDuration: 0.15) { [weak self] in
             self?.listSeparatorView.alpha = 1.0
+            self?.locationResultsTableViewHeightConstraint.isActive = false
+            self?.locationResultsTableViewBottomConstraint.isActive = true
+            self?.locationResultsTableViewTopConstraint.isActive = true
             self?.searchAreaHeightConstraint.constant = fullSearchAreaHeight
             self?.view.layoutIfNeeded()
         }
@@ -117,6 +125,8 @@ private extension MapViewController {
     // MARK: Transitions
     
     private func transitionToTypingSearchField() {
+        locationResultsTableView.alpha = 0
+        locationResultsTableView.isHidden = false
         backButton.alpha = 0
         backButton.isHidden = false
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
@@ -124,6 +134,7 @@ private extension MapViewController {
             self?.menuButton.alpha = 0
             self?.separatorView.alpha = 0
             self?.directionsButton.alpha = 0
+            self?.locationResultsTableView.alpha = 1.0
             self?.locationSearchFieldFullViewConstraint.isActive = true
             self?.locationSearchFieldCompactedConstraint.isActive = false
             self?.view.layoutIfNeeded()
@@ -135,6 +146,8 @@ private extension MapViewController {
     }
     
     private func transitionToNormalView() {
+        locationResultsTableViewTopConstraint.isActive = false
+        locationResultsTableViewBottomConstraint.isActive = false
         locationSearchField.resignFirstResponder()
         separatorView.alpha = 0
         separatorView.isHidden = false
@@ -142,20 +155,47 @@ private extension MapViewController {
         directionsButton.isHidden = false
         menuButton.alpha = 0
         menuButton.isHidden = false
+        locationSearchFieldFullViewConstraint.isActive = false
+        locationSearchFieldCompactedConstraint.isActive = true
+        locationResultsTableViewHeightConstraint.isActive = true
+        view.layoutIfNeeded()
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.menuButton.alpha = 1.0
             self?.backButton.alpha = 0
             self?.separatorView.alpha = 1.0
             self?.directionsButton.alpha = 1.0
             self?.listSeparatorView.alpha = 0
-            self?.locationSearchFieldFullViewConstraint.isActive = false
-            self?.locationSearchFieldCompactedConstraint.isActive = true
+            self?.locationResultsTableView.alpha = 0
             self?.searchAreaHeightConstraint.constant = searchAreaCompactHeight
             self?.view.layoutIfNeeded()
         }, completion: { [weak self] _ in
+            self?.locationResultsTableView.isHidden = true
             self?.backButton.isHidden = true
             self?.listSeparatorView.isHidden = true
         })
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension MapViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension MapViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceCell") else {
+            return UITableViewCell()
+        }
+        cell.textLabel?.text = "Place"
+        return cell
     }
 }
 
